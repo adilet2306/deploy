@@ -15,11 +15,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Decode GCP SA Key
+        run: echo "${{ secrets.GKE_SA_KEY }}" | base64 -d > gcp-key.json
+        shell: bash
+
       - name: Setup Google Cloud
         uses: google-github-actions/setup-gcloud@v0.3.0
         with:
-          credentials_json: ${{ secrets.GKE_SA_KEY }}
+          credentials_json: ${{ steps.decode.outputs.key }}
           project_id: ${{ secrets.GKE_PROJECT }}
           export_default_credentials: true
-
 
