@@ -15,11 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Connect to GKE
-        uses: Swibi/connect-to-gke@v2.1
+      - name: Setup Google Cloud
+        uses: google-github-actions/setup-gcloud@v0.3.0
         with:
-          GCP_SA_KEY: ${{ secrets.GKE_SA_KEY }}
-          GCP_PROJECT_ID: ${{ secrets.GKE_PROJECT }}
-          GKE_CLUSTER: cluster-1
-          GKE_LOCATION: us-central1-c
+          credentials_json: ${{ secrets.GKE_SA_KEY }}
+          project_id: ${{ secrets.GKE_PROJECT }}
+          export_default_credentials: true
+
 
