@@ -5,6 +5,8 @@ on:
     branches:
       - main
 
+  workflow_dispatch:
+
 jobs:
   setup-build-publish:
     name: Setup, Build, and Publish
