@@ -25,6 +25,9 @@ jobs:
     - name: Set GCP Project
       run: gcloud config set project fleet-gamma-301817
 
+    - name: Install gke-gcloud-auth-plugin
+      run: gcloud components install gke-gcloud-auth-plugin
+
     - name: Get GKE credentials
       run: gcloud container clusters get-credentials cluster-1 --zone us-central1-c
 
