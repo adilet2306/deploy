@@ -1,28 +1,21 @@
-name: CD
+name: Deploy to GKE
 
 on:
   push:
-    branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
-
+    branches:
+      - main
 
 jobs:
-  build:
+  setup-build-publish:
+    name: Setup, Build, and Publish
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name: Decode GCP SA Key
-        run: echo "${{ secrets.GKE_SA_KEY }}" | base64 -d > gcp-key.json
-        shell: bash
-
-      - name: Setup Google Cloud
-        uses: google-github-actions/setup-gcloud@v0.3.0
-        with:
-          credentials_json: ${{ steps.decode.outputs.key }}
-          project_id: ${{ secrets.GKE_PROJECT }}
-          export_default_credentials: true
-
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v0
+      with:
+        service_account_key: ${{ secrets.GKE_SA_KEY }}
+        project_id: ${{ secrets.GKE_PROJECT }}
