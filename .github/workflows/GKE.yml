@@ -34,4 +34,4 @@ jobs:
 
     - name: Deploy to GKE
       run: |
-        helm upgrade --install my-release ./hello --namespace default --set repository.image=kaizenacademy/python-app:1.0.0
+        helm upgrade --install my-release ./hello --namespace default --set repository.image=karabalta75/python-app:2.0.0
