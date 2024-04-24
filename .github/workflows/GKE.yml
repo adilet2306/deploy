@@ -22,6 +22,13 @@ jobs:
       with:
         credentials_json: ${{ secrets.GKE_SA_KEY }}
 
+    - name: Set GCP Project
+      run: gcloud config set project fleet-gamma-301817
+
+    - name: Get GKE credentials
+      run: gcloud container clusters get-credentials cluster-1 --zone us-central1-c
+
+
     - name: Deploy to GKE
       run: |
         helm upgrade --install my-release ./hello --namespace default --set repository.image=kaizenacademy/python-app:1.0.0
