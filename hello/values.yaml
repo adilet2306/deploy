@@ -7,5 +7,5 @@ repository:
 service:
   name: hello-world
   port: 80
-  targetport: 80
+  targetport: 5000
   type: LoadBalancer
