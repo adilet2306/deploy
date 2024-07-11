@@ -1,16 +1,18 @@
 name: Deploy to GKE
 
 on:
-  workflow_dispatch:
-    inputs:
-      docker_image:
-        description: 'Docker image repository'
-        required: true
-        default: ''
-      image_tag:
-        description: 'Docker image tag'
-        required: true
-        default: ''
+  push:
+    branches: ["main"]
+  # workflow_dispatch:
+  #   inputs:
+  #     docker_image:
+  #       description: 'Docker image repository'
+  #       required: true
+  #       default: ''
+  #     image_tag:
+  #       description: 'Docker image tag'
+  #       required: true
+  #       default: ''
 
 jobs:
   setup-build-publish:
@@ -30,7 +32,7 @@ jobs:
         credentials_json: ${{ secrets.GKE_SA_KEY }}
 
     - name: Set GCP Project
-      run: gcloud config set project fleet-gamma-301817
+      run: gcloud config set project horizontal-tube-424123-a0
 
     - name: Install gke-gcloud-auth-plugin
       run: gcloud components install gke-gcloud-auth-plugin
@@ -45,6 +47,6 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
 
-    - name: Deploy to GKE
-      run: |
-        helm upgrade --install my-release ./hello --namespace default --set repository.image=${{ inputs.docker_image }} --set repository.tag=${{ inputs.image_tag }}
+    # - name: Deploy to GKE
+    #   run: |
+    #     helm upgrade --install my-release ./hello --namespace default --set repository.image=${{ inputs.docker_image }} --set repository.tag=${{ inputs.image_tag }}
