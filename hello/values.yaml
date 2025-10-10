@@ -9,3 +9,4 @@ service:
   port: 80
   targetport: 5000
   type: LoadBalancer
+
